@@ -24,9 +24,11 @@ public class TicTacToe {
 		
 		else
 			computer = 'X';	
-		scan.close();
+		
 		return user;
 	}
+	
+	//Display the Board
 	
 	private static char[] displayBoard() {
 		int row =0;
@@ -41,26 +43,46 @@ public class TicTacToe {
 		return board;
 	}
 	
+	//Make the Move
 	
+	private char[] makeMove(char choice, int index) {
+		
+		board[index] = choice;
+		
+		return board;
+	}
 	
-	
+	//Main Logic of the Program
 	public static void main(String[] args) {
+		
+		
 		Scanner sc = new Scanner(System.in);
-	//Welcome to the Tic Tac Toe Game
+		//Welcome to the Tic Tac Toe Game
 		System.out.println("Welcome to the Tic Tac Toe Game");
+		
+		
 		
 		TicTacToe game = new TicTacToe();
 		 board = game.createBoard();
-		
+		 
+		 
+		 
 		System.out.println("Enter the Input: X or O");
 		  char choice = game.method();
 		  System.out.println(choice);
+		
 		  
-		  
- 
+		System.out.println("Enter the index you want to enter:"); 
+		int index = sc.nextInt();
+		
+		
+		board = game.makeMove(choice,index);  
 	
 		TicTacToe.displayBoard();
-	}
+		
+	     
+	
+		 }
 
 	
 }
