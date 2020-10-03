@@ -75,8 +75,10 @@ public class TicTacToe {
 		System.out.println("Enter the index you want to enter:"); 
 		int index = sc.nextInt();
 		
-		
-		board = game.makeMove(choice,index);  
+		boolean check = game.checkValue(index);
+		if(check == false)
+		board = game.makeMove(choice,index);  	
+		  
 	
 		TicTacToe.displayBoard();
 		
@@ -84,5 +86,11 @@ public class TicTacToe {
 	
 		 }
 
-	
+	private boolean checkValue(int index) {
+		
+		if(board[index] == 'X' || board[index] == 'O')
+		return true;
+		else
+		return false;
+	}
 }
