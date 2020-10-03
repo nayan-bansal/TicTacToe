@@ -31,15 +31,8 @@ public class TicTacToe {
 	//Display the Board
 	
 	private static char[] displayBoard() {
-		int row =0;
-		for(int i=1;i<board.length;i++) {
-			if(row==3) {
-				System.out.println();
-			row = 0;	
-			}
-			System.out.println(board[i]);
-			row++;
-		}
+		
+		System.out.println(board[1]+" | "+board[2]+" | "+board[3]+"\n"+board[4]+" | "+board[5]+" | "+board[6]+"\n"+board[7]+" | "+board[8]+" | "+board[9]);
 		return board;
 	}
 	
@@ -60,30 +53,41 @@ public class TicTacToe {
 		//Welcome to the Tic Tac Toe Game
 		System.out.println("Welcome to the Tic Tac Toe Game");
 		
-		
-		
 		TicTacToe game = new TicTacToe();
 		 board = game.createBoard();
 		 
+		 int toss = (int)Math.floor(Math.random()*10%2);
 		 
 		 
 		System.out.println("Enter the Input: X or O");
 		  char choice = game.method();
 		  System.out.println(choice);
-		
+		 
+		  char choice_computer = '0';
+		  if(choice =='X')
+			  choice_computer = 'O';
+			  else
+				  choice_computer = 'X';
+		if(toss ==0)
+			 {
 		  
 		System.out.println("Enter the index you want to enter:"); 
 		int index = sc.nextInt();
 		
 		boolean check = game.checkValue(index);
 		if(check == false)
-		board = game.makeMove(choice,index);  	
-		  
+		board = game.makeMove(choice,index);  
 	
 		TicTacToe.displayBoard();
-		
+		 }
+		 else {
+			 
+		int computer_index = (int)Math.floor(Math.random()*10%9+1);
+		 board = game.makeMove(choice_computer,computer_index);
+		 TicTacToe.displayBoard();
+		 }
 	     
-	
+		
 		 }
 
 	private boolean checkValue(int index) {
