@@ -130,16 +130,32 @@ public class TicTacToe {
 	private char[] computerMove(char choice_computer) {
 		
 		TicTacToe game = new TicTacToe();
-		
-		//The Corner Moves
-		//int[] corner = {1,3,7,9};
-		
-		//int computer_index = (int) Math.floor(Math.random() * 10 % 4 + 1);
 
 		if(game.playToWin(choice_computer) >0)
 			board = game.makeMove(choice_computer, game.playToWin(choice_computer));
 			
 		else {
+			
+			//The Corner Moves
+		
+		int[] corner = {1,3,7,9};
+		int count =0;	
+		if(count<4) {
+		int computer_index_corner = (int) Math.floor(Math.random() * 10 % 4 );
+		boolean check_corner  = game.checkValue(corner[computer_index_corner]);
+		while (check_corner == true) {
+			computer_index_corner = (int) Math.floor(Math.random() * 10 % 4);
+			check_corner = game.checkValue(corner[computer_index_corner]);
+		}
+		if (check_corner == false) {
+		board = game.makeMove(choice_computer, corner[computer_index_corner]);
+		
+		count++;
+		return board;
+		}
+		}
+		
+		else	{
 		int computer_index = (int) Math.floor(Math.random() * 10 % 9 + 1);
 		
 		boolean check = game.checkValue(computer_index);
@@ -149,6 +165,7 @@ public class TicTacToe {
 		}
 		if (check == false)
 		board = game.makeMove(choice_computer, computer_index);
+		}
 		}
 		return board;
 	}
