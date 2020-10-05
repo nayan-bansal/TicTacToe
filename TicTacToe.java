@@ -187,35 +187,42 @@ public class TicTacToe {
 	// Main Logic of the Program
 	public static void main(String[] args) {
 
+		while(true) {
+		
+		
 		Scanner sc = new Scanner(System.in);
 		
 	// Welcome to the Tic Tac Toe Game
 		System.out.println("Welcome to the Tic Tac Toe Game");
-
-	//Command to create Board
+		
 		TicTacToe game = new TicTacToe();
-		board = game.createBoard();
-
+		
 	// Choice of the User for input and computer
 		char[] choice = new char[2];
 		System.out.println("Enter the Input: X or O");
-		 choice[0] = game.ChoiceUser();
-		 choice[1] = game.ChoiceComputer(choice[0]);
-		 
-		 
-	// Toss for the Game
-		int toss = game.toss();
-
-	//Total Iterations
+		choice[0] = game.ChoiceUser();
+		choice[1] = game.ChoiceComputer(choice[0]);
+		
+		//Command to create Board
+			board = game.createBoard();
+				 
+		// Toss for the Game
+			int toss = game.toss();
+		
+		//Total Iterations
 		int total_cases = 9;
 	
 	while (total_cases != 0) {
+
 		if (toss == 0) {
 
-	//User Choice
+			//User Choice
 		board = game.userMove(choice[0]);
 	    TicTacToe.displayBoard();
-	    game.checkWinner(choice[0],choice[1]);
+	   // game.checkWinner(choice[0],choice[1]);
+	    
+	    if(game.checkWinner(choice[0],choice[1]) == true)
+	    break;
 	    
 	    int position  = 0;
 		position = game.playToWin(choice[1]);
@@ -235,7 +242,10 @@ public class TicTacToe {
 		TicTacToe.displayBoard();
 		}
 	    
-	    game.checkWinner(choice[0],choice[1]);
+	   // game.checkWinner(choice[0],choice[1]);
+	    
+	    if(game.checkWinner(choice[0],choice[1]) == true)
+		    break;
 	 
 			}
 		else {
@@ -256,20 +266,29 @@ public class TicTacToe {
 		}
 		TicTacToe.displayBoard();
 		}
-	    game.checkWinner(choice[0],choice[1]);
+	    //game.checkWinner(choice[0],choice[1]);
+	    
+	    if(game.checkWinner(choice[0],choice[1]) == true)
+		    break;
 	 
 		board = game.userMove(choice[0]);
 	    TicTacToe.displayBoard();
-		   game.checkWinner(choice[0],choice[1]);
+		  // game.checkWinner(choice[0],choice[1]);
+		   
+		   if(game.checkWinner(choice[0],choice[1]) == true)
+			    break;
 		    
 		}
 		total_cases--;
 		}
 		
-	//To Check for Draw
-		if(total_cases == 0)
-			System.out.println("The Game is Draw");
-		
+	System.out.println("Do you Want to Play another game?\nPress 1 for Yes\nPress 2 for exit");
+	int new_game = sc.nextInt();
+	if(new_game==1)
+		continue;
+	else
+		break;
+	}
 	}
 	private boolean checkWinner(char user, char c) {
 		// Horizontal Lines
@@ -277,12 +296,14 @@ public class TicTacToe {
 				|| (board[4] == user && board[5] == user && board[6] == user)
 				|| (board[7] == user && board[8] == user && board[9] == user)) {
 			System.out.println("Player is the Winner");
-			System.exit(0);}
+			return true ;}
+		
+		
 		else if ((board[1] == c && board[2] == c && board[3] == c)
 				|| (board[4] == c && board[5] == c && board[6] == c)
 				|| (board[7] == c && board[8] == c && board[9] == c)) {
 			System.out.println("Computer is the Winner");
-			System.exit(0);
+			return true ;
 
 		} 
 		// Vertical Lines
@@ -291,25 +312,25 @@ public class TicTacToe {
 				|| board[3] == user && board[6] == user && board[9] == user) {
 			
 			System.out.println("Player is the Winner");
-			System.exit(0);
+			return true ;
 		} 
 		else if ((board[1] == c && board[4] == c && board[7] == c)
 				|| (board[2] == c && board[5] == c && board[8] == c)
 				|| (board[3] == c && board[6] == c && board[9] == c)) {
 			System.out.println("Computer is the Winner");
-			System.exit(0);
+			return true ;
 
 		}
 		//Diagonals
 		else if((board[1] == user && board[5] == user && board[9] == user ) || (board[3] == user && board[5] == user && board[7] == user))
 			{
 		System.out.println("Player is the Winner");
-		System.exit(0);
+		return true ;
 		}
 		else if((board[1] == c && board[5] == c && board[9] == c ) || (board[3] == c && board[5] == c && board[7] == c))
 		{
 	System.out.println("Computer is the Winner");
-	System.exit(0);
+	return true ;
 	}
 
 		return false;
