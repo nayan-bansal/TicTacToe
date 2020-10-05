@@ -10,7 +10,7 @@ public class TicTacToe {
 	// Initialize Board for game
 	private char[] createBoard() {
 		for (int i = 0; i < board.length; i++)
-			board[i] = '0';
+			board[i] = ' ';
 		return board;
 	}
 
@@ -94,80 +94,60 @@ public class TicTacToe {
 		return board;
 	}
 	
-	private int playToWin( char computerChoice) {
-		
-		if ((board[1] == computerChoice && board[2] == computerChoice || board[5] == computerChoice && board[7] == computerChoice
-				|| board[6] == computerChoice && board[9] == computerChoice) && board[3] == ' ')
-			return  3;
-		else if ((board[4] == computerChoice && board[5] == computerChoice || board[3] == computerChoice && board[9] == computerChoice)
-				&& board[6] == ' ')
-			return  6;
-		else if ((board[7] == computerChoice && board[8] == computerChoice || board[3] == computerChoice && board[6] == computerChoice
-				|| board[1] == computerChoice && board[5] == computerChoice) && board[9] == ' ')
-			return  9;
-		else if ((board[2] == computerChoice && board[3] == computerChoice || board[5] == computerChoice && board[9] == computerChoice
-				|| board[7] == computerChoice && board[4] == computerChoice) && board[1] == ' ')
-			return  1;
-		else if ((board[1] == computerChoice && board[3] == computerChoice || board[5] == computerChoice && board[8] == computerChoice)
-				&& board[2] == ' ')
-			return  2;
-		else if ((board[1] == computerChoice && board[7] == computerChoice || board[5] == computerChoice && board[6] == computerChoice)
-				&& board[4] == ' ')
-			return  4;
-		else if ((board[1] == computerChoice && board[9] == computerChoice || board[7] == computerChoice && board[3] == computerChoice
-				|| board[4] == computerChoice && board[6] == computerChoice || board[2] == computerChoice && board[8] == computerChoice)
-				&& board[5] == ' ')
-			return  5;
-		else if ((board[1] == computerChoice && board[4] == computerChoice || board[8] == computerChoice && board[9] == computerChoice
-				|| board[5] == computerChoice && board[3] == computerChoice) && board[7] == ' ')
-			return  7;
-		else if ((board[7] == computerChoice && board[9] == computerChoice || board[2] == computerChoice && board[5] == computerChoice)
-				&& board[8] == ' ')
-			return  8;
-		return 0;
-			}
 
+
+	private int playToBlock( char userChoice, char computerChoice) {
+		
+		if ((board[1] == userChoice && board[2] == userChoice || board[5] == userChoice && board[7] == userChoice
+				|| board[6] == userChoice && board[9] == userChoice) && board[3] == ' ')
+			return 3;
+		else if ((board[4] == userChoice && board[5] == userChoice || board[3] == userChoice && board[9] == userChoice) && board[6] == ' ')
+			return 6;
+		else if ((board[7] == userChoice && board[8] == userChoice || board[3] == userChoice && board[6] == userChoice
+				|| board[1] == userChoice && board[5] == userChoice) && board[9] == ' ')
+			return 9;
+		else if ((board[2] == userChoice && board[3] == userChoice || board[5] == userChoice && board[9] == userChoice
+				|| board[7] == userChoice && board[4] == userChoice) && board[1] == ' ')
+			return 1;
+		else if ((board[1] == userChoice && board[3] == userChoice || board[5] == userChoice && board[8] == userChoice) && board[2] == ' ')
+			return 2;
+		else if ((board[1] == userChoice && board[7] == userChoice || board[5] == userChoice && board[6] == userChoice) && board[4] == ' ')
+			return 4;
+		else if ((board[1] == userChoice && board[9] == userChoice || board[7] == userChoice && board[3] == userChoice
+				|| board[4] == userChoice && board[6] == userChoice || board[2] == userChoice && board[8] == userChoice) && board[5] == ' ')
+			return 5;
+		else if ((board[1] == userChoice && board[4] == userChoice || board[8] == userChoice && board[9] == userChoice
+				|| board[5] == userChoice && board[3] == userChoice) && board[7] == ' ')
+			return 7;
+		else if ((board[7] == userChoice && board[9] == userChoice || board[2] == userChoice && board[5] == userChoice) && board[8] == ' ')
+			return 8;
+		return 0;
+	}
+	
 	private char[] computerMove(char choice_computer) {
 		
 		TicTacToe game = new TicTacToe();
-
-		if(game.playToWin(choice_computer) >0)
-			board = game.makeMove(choice_computer, game.playToWin(choice_computer));
-			
-		else {
-			
-			//The Corner Moves
 		
+			
+		//The Corner Moves
+		int count=0;
 		int[] corner = {1,3,7,9};
-		int count =0;	
-		if(count<4) {
+	
 		int computer_index_corner = (int) Math.floor(Math.random() * 10 % 4 );
 		boolean check_corner  = game.checkValue(corner[computer_index_corner]);
-		while (check_corner == true) {
+		while (check_corner == true && count<4) {
 			computer_index_corner = (int) Math.floor(Math.random() * 10 % 4);
 			check_corner = game.checkValue(corner[computer_index_corner]);
 		}
 		if (check_corner == false) {
 		board = game.makeMove(choice_computer, corner[computer_index_corner]);
-		
 		count++;
-		return board;
-		}
-		}
-		
-		else	{
-		int computer_index = (int) Math.floor(Math.random() * 10 % 9 + 1);
-		
-		boolean check = game.checkValue(computer_index);
-		while (check == true) {
-			computer_index = (int) Math.floor(Math.random() * 10 % 9 + 1);
-			check = game.checkValue(computer_index);
-		}
-		if (check == false)
-		board = game.makeMove(choice_computer, computer_index);
-		}
 		}
 		return board;
+		
+	
+	
+	
 	}
 
 	// Main Logic of the Program
@@ -203,14 +183,45 @@ public class TicTacToe {
 	    TicTacToe.displayBoard();
 	    game.checkWinner(choice[0],choice[1]);
 	    
-	    board= game.computerMove(choice[1]);
-	    TicTacToe.displayBoard();
+	    int position  = 0;
+		position = game.playToBlock(choice[0], choice[1]);
+		if(position>0)
+			{
+			board[position] = choice[1];
+		
+			TicTacToe.displayBoard();}
+		else {
+		position = game.playToWin(choice[1]);
+		if(position>0)
+			board[position] = choice[1];
+		else
+		{
+			board = game.computerMove(choice[1]);
+		}
+		TicTacToe.displayBoard();
+		}
+	    
 	    game.checkWinner(choice[0],choice[1]);
 	 
 			}
 		else {
-		board= game.computerMove(choice[1]);
-	    TicTacToe.displayBoard();
+		int position  = 0;
+		position = game.playToBlock(choice[0], choice[1]);
+		if(position>0)
+			{
+			board[position] = choice[1];
+		
+			TicTacToe.displayBoard();}
+		else {
+		position = game.playToWin(choice[1]);
+		if(position>0)
+			board[position] = choice[1];
+		else
+		{
+			board = game.computerMove(choice[1]);
+		}
+		TicTacToe.displayBoard();
+		}
 	    game.checkWinner(choice[0],choice[1]);
 	 
 		board = game.userMove(choice[0]);
@@ -234,12 +245,7 @@ public class TicTacToe {
 			System.out.println("Player is the Winner");
 			System.exit(0);
 
-		} else if (board[1] == computer && board[2] == computer && board[3] == computer
-				|| board[4] == computer && board[5] == computer && board[6] == computer
-				|| board[7] == computer && board[8] == computer && board[9] == computer) {
-			System.out.println("COmputer is the Winner");
-			System.exit(0);
-		}
+		} 
 		// Vertical Lines
 		if (board[1] == user && board[4] == user && board[7] == user
 				|| board[2] == user && board[5] == user && board[8] == user
@@ -247,23 +253,12 @@ public class TicTacToe {
 			
 			System.out.println("Player is the Winner");
 			System.exit(0);
-		} else if (board[1] == computer && board[4] == computer && board[7] == computer
-				|| board[2] == computer && board[5] == computer && board[8] == computer
-				|| board[3] == computer && board[6] == computer && board[9] == computer) {
-			System.out.println("COmputer is the Winner");
-			System.exit(0);
-		}
-		
+		} 
 		//Diagonals
 		else if((board[1] == user && board[5] == user && board[9] == user ) || (board[3] == user && board[5] == user && board[7] == user))
 			{
 		System.out.println("Player is the Winner");
 		System.exit(0);
-		}
-		else if((board[1] == computer && board[5] == computer && board[9] == computer ) || (board[3] == computer && board[5] == computer && board[7] == computer))
-		{
-			System.out.println("Computer is the Winner");
-			System.exit(0);
 		}
 
 		return false;
