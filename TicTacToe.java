@@ -123,7 +123,6 @@ public class TicTacToe {
 		else if ((board[7] == computerChoice && board[9] == computerChoice || board[2] == computerChoice && board[5] == computerChoice)
 				&& board[8] == ' ')
 			return 8;
-		System.out.println("The Winner is Computer");
 		return 0;
 			}
 
@@ -160,7 +159,7 @@ public class TicTacToe {
 		TicTacToe game = new TicTacToe();
 		
 			
-		/*/The Corner Moves
+		//The Corner Moves
 		int count=0;
 		int[] corner = {1,3,7,9};
 	
@@ -174,7 +173,7 @@ public class TicTacToe {
 		board = game.makeMove(choice_computer, corner[computer_index_corner]);
 		count++;
 		}
-		return board;*/
+		return board;
 		
 	
 	
@@ -215,14 +214,14 @@ public class TicTacToe {
 	    game.checkWinner(choice[0],choice[1]);
 	    
 	    int position  = 0;
-		position = game.playToBlock(choice[0], choice[1]);
+		position = game.playToWin(choice[1]);
 		if(position>0)
 			{
 			board[position] = choice[1];
 		
 			TicTacToe.displayBoard();}
 		else {
-		position = game.playToWin(choice[1]);
+		position = game.playToBlock(choice[0],choice[1]);
 		if(position>0)
 			board[position] = choice[1];
 		else
@@ -237,14 +236,14 @@ public class TicTacToe {
 			}
 		else {
 		int position  = 0;
-		position = game.playToBlock(choice[0], choice[1]);
+		position = game.playToWin( choice[1]);
 		if(position>0)
 			{
 			board[position] = choice[1];
 		
 			TicTacToe.displayBoard();}
 		else {
-		position = game.playToWin(choice[1]);
+		position = game.playToBlock(choice[0],choice[1]);
 		if(position>0)
 			board[position] = choice[1];
 		else
@@ -268,29 +267,46 @@ public class TicTacToe {
 			System.out.println("The Game is Draw");
 		
 	}
-	private boolean checkWinner(char user, char computer) {
+	private boolean checkWinner(char user, char c) {
 		// Horizontal Lines
 		if ((board[1] == user && board[2] == user && board[3] == user)
 				|| (board[4] == user && board[5] == user && board[6] == user)
 				|| (board[7] == user && board[8] == user && board[9] == user)) {
 			System.out.println("Player is the Winner");
+			System.exit(0);}
+		else if ((board[1] == c && board[2] == c && board[3] == c)
+				|| (board[4] == c && board[5] == c && board[6] == c)
+				|| (board[7] == c && board[8] == c && board[9] == c)) {
+			System.out.println("Computer is the Winner");
 			System.exit(0);
 
 		} 
 		// Vertical Lines
-		if (board[1] == user && board[4] == user && board[7] == user
+		else if (board[1] == user && board[4] == user && board[7] == user
 				|| board[2] == user && board[5] == user && board[8] == user
 				|| board[3] == user && board[6] == user && board[9] == user) {
 			
 			System.out.println("Player is the Winner");
 			System.exit(0);
 		} 
+		else if ((board[1] == c && board[4] == c && board[7] == c)
+				|| (board[2] == c && board[5] == c && board[8] == c)
+				|| (board[3] == c && board[6] == c && board[9] == c)) {
+			System.out.println("Computer is the Winner");
+			System.exit(0);
+
+		}
 		//Diagonals
 		else if((board[1] == user && board[5] == user && board[9] == user ) || (board[3] == user && board[5] == user && board[7] == user))
 			{
 		System.out.println("Player is the Winner");
 		System.exit(0);
 		}
+		else if((board[1] == c && board[5] == c && board[9] == c ) || (board[3] == c && board[5] == c && board[7] == c))
+		{
+	System.out.println("Computer is the Winner");
+	System.exit(0);
+	}
 
 		return false;
 	}
