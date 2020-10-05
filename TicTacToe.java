@@ -94,7 +94,38 @@ public class TicTacToe {
 		return board;
 	}
 	
-
+	private int playToWin( char computerChoice) {	
+		if ((board[1] == computerChoice && board[2] == computerChoice || board[5] == computerChoice && board[7] == computerChoice
+				|| board[6] == computerChoice && board[9] == computerChoice) && board[3] == ' ')
+			return 3;
+		else if ((board[4] == computerChoice && board[5] == computerChoice || board[3] == computerChoice && board[9] == computerChoice)
+				&& board[6] == ' ')
+			return 6;
+		else if ((board[7] == computerChoice && board[8] == computerChoice || board[3] == computerChoice && board[6] == computerChoice
+				|| board[1] == computerChoice && board[5] == computerChoice) && board[9] == ' ')
+			return 9;
+		else if ((board[2] == computerChoice && board[3] == computerChoice || board[5] == computerChoice && board[9] == computerChoice
+				|| board[7] == computerChoice && board[4] == computerChoice) && board[1] == ' ')
+			return 1;
+		else if ((board[1] == computerChoice && board[3] == computerChoice || board[5] == computerChoice && board[8] == computerChoice)
+				&& board[2] == ' ')
+			return 2;
+		else if ((board[1] == computerChoice && board[7] == computerChoice || board[5] == computerChoice && board[6] == computerChoice)
+				&& board[4] == ' ')
+			return 4;
+		else if ((board[1] == computerChoice && board[9] == computerChoice || board[7] == computerChoice && board[3] == computerChoice
+				|| board[4] == computerChoice && board[6] == computerChoice || board[2] == computerChoice && board[8] == computerChoice)
+				&& board[5] == ' ')
+			return 5;
+		else if ((board[1] == computerChoice && board[4] == computerChoice || board[8] == computerChoice && board[9] == computerChoice
+				|| board[5] == computerChoice && board[3] == computerChoice) && board[7] == ' ')
+			return 7;
+		else if ((board[7] == computerChoice && board[9] == computerChoice || board[2] == computerChoice && board[5] == computerChoice)
+				&& board[8] == ' ')
+			return 8;
+		System.out.println("The Winner is Computer");
+		return 0;
+			}
 
 	private int playToBlock( char userChoice, char computerChoice) {
 		
@@ -129,7 +160,7 @@ public class TicTacToe {
 		TicTacToe game = new TicTacToe();
 		
 			
-		//The Corner Moves
+		/*/The Corner Moves
 		int count=0;
 		int[] corner = {1,3,7,9};
 	
@@ -143,7 +174,7 @@ public class TicTacToe {
 		board = game.makeMove(choice_computer, corner[computer_index_corner]);
 		count++;
 		}
-		return board;
+		return board;*/
 		
 	
 	
