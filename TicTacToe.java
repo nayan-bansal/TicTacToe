@@ -172,13 +172,13 @@ public class TicTacToe {
 		if (check_corner == false) {
 		board = game.makeMove(choice_computer, corner[computer_index_corner]);
 		count++;
-<<<<<<< HEAD
+
 		}
 		return board;
 		
 	
 	
-=======
+
 		}
 		
 		
@@ -188,7 +188,7 @@ public class TicTacToe {
 				board = game.makeMove(choice_computer, 5);
 		}
 		return board;
->>>>>>> UC_12_Computer_Center
+
 	
 	}
 
